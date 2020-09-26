@@ -4,6 +4,7 @@
 
 ### Стек:
 - aiohttp
+- gunicorn
 - BeautifulSoup
 
 ### Функционал:
