@@ -1,13 +1,11 @@
 import asyncio
+import multiprocessing
 import re
 from concurrent.futures import ThreadPoolExecutor
-import multiprocessing
+from parser import dozhd, igromania, lenta
 
-from aiohttp import web, ClientSession
-
-from api import Api, TELEGRAM_TOKEN
-from parser import igromania, lenta, dozhd
-
+from aiohttp import ClientSession, web
+from api import TELEGRAM_TOKEN, Api
 
 bot = Api()
 routes = web.RouteTableDef()
@@ -51,7 +49,7 @@ async def main(request):
         message_id = callback_message_id
         first_name = data['callback_query']['from']['first_name']
         caption = data['callback_query']['message']['caption']
-    else:
+    if 'message' in data:
         chat_id = data['message']['chat']['id']
         first_name = data['message']['from']['first_name']
         message = data['message'].get('text')
